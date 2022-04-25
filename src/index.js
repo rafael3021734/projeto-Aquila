@@ -19,9 +19,9 @@ app.use(
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-app.get('/', (request, response) => {
+/*app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
-})
+})*/
 
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
