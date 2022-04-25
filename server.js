@@ -4,8 +4,12 @@ const express = require('express');
 const app = express();
  
 app.use(express.static(path.join(__dirname, 'dist')));
-app.set('port', process.env.PORT || 6678);
+app.set('port', process.env.PORT || 3000);
  
 const server = app.listen(app.get('port'), function() {
   console.log('listening on port ', server.address().port);
 });
+
+app.get('/', (request, response) => {
+    response.json({ info: 'Node.js, Express, and Postgres API' })
+})
