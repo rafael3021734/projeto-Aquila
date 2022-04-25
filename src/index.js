@@ -6,7 +6,9 @@ const swaggerFile = require('./swagger_output.json')
 const db = require('./queries/queriesUsuario')
 const db2 = require('./queries/queriesPrestador')
 const db3 = require('./queries/queriesServicos')
-const port = 3000
+//const port = 3000
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
 app.use(bodyParser.json())
 app.use(
@@ -40,6 +42,9 @@ app.post('/servicos', db3.createServicos)
 app.put('/servicos/:id', db3.updateServicos)
 app.delete('/servicos/:id', db3.deleteServicos)
 
-app.listen(port, () => {
+/*app.listen(port, () => {
   console.log(`App running on port ${port}.`)
+})*/
+app.listen(PORT, HOST, () => {
+  console.log('Server started on ' + HOST + ':' + PORT);
 })
