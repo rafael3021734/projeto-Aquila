@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const cors = require('cors')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 const db = require('./queries/queriesUsuario')
@@ -19,9 +20,9 @@ app.use(
 
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
-/*app.get('/', (request, response) => {
+app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
-})*/
+})
 
 app.use((req, res, next) => {
 	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
