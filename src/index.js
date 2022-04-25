@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const app = express()
+//const app = express()
 const cors = require('cors')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
@@ -10,6 +10,18 @@ const db3 = require('./queries/queriesServicos')
 //const port = 3000
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
+
+//var express = require('express');
+var fs = require('fs');
+
+var privateKey = fs.readFileSync('sslcert/server.key');
+var certificate = fs.readFileSync('sslcert/server.crt');
+
+var credentials = {key: privateKey, cert: certificate};
+
+
+var app = express.createServer(credentials);
+
 
 app.use(bodyParser.json())
 app.use(
