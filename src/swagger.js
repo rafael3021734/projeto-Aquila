@@ -5,7 +5,7 @@ const doc = {
         title: 'My API',
         description: 'temple API'
     },
-    host: 'https://apiaquila.herokuapp.com/',
+    host: 'apiaquila.herokuapp.com',
     schemes: ['http']
 }
 const outputFile = './swagger_output.json'
