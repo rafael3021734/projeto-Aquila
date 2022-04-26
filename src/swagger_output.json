@@ -5,7 +5,7 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "https://apiaquila.herokuapp.com",
+  "host": "apiaquila.herokuapp.com",
   "basePath": "/",
   "schemes": [
     "http"
