@@ -8,7 +8,7 @@
   "host": "apiaquila.herokuapp.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
