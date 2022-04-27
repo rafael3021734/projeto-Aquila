@@ -11,7 +11,7 @@ const pool = new Pool({
 //require('dotenv').config()
 
 const getAgendamentos = (request, response) => {
-  pool.query('SELECT * FROM agendamento ORDER BY ID_Agendamento ASC', (error, results) => {
+  pool.query('SELECT * FROM agendamento ORDER BY id_agendamento ASC', (error, results) => {
     if (error) {
       throw error
     }
@@ -20,9 +20,9 @@ const getAgendamentos = (request, response) => {
 }
 
 const getAgendamentosById = (request, response) => {
-  const id = parseInt(request.params.ID_Agendamento)
+  const id = parseInt(request.params.id)
 
-  pool.query('SELECT * FROM agendamento WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM agendamento WHERE id_agendamento = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
@@ -31,25 +31,26 @@ const getAgendamentosById = (request, response) => {
 }
 
 const createAgendamento = (request, response) => {
-  const { ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora } = request.body
+  const { id_agendamento, id_user, id_favorito, id_prestador, data, hora } = request.body
 
-  pool.query('INSERT INTO agendamento (ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora) VALUES ($1, $2, $2, $2, $2, $2) RETURNING *', [name, email], (error, results) => {
+  pool.query('INSERT INTO agendamento (id_agendamento, id_user, id_favorito, id_prestador, data, hora) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', 
+  [id_agendamento, id_user, id_favorito, id_prestador, data, hora ], (error, results) => {
     if (error) {
       throw error
     } else if (!Array.isArray(results.rows) || results.rows.length < 1) {
     	throw error
     }
-    response.status(201).send(`User added with ID: ${results.rows[0].ID_Agendamento}`)
+    response.status(201).send(`User added with ID: ${results.rows[0].id_agendamento}`)
   })
 }
 
 const updateAgendamento = (request, response) => {
-  const id = parseInt(request.params.ID_Agendamento)
-  const {ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora } = request.body
+  const id = parseInt(request.params.id)
+  const {id_agendamento, id_user, id_favorito, id_prestador, data, hora} = request.body
 
   pool.query(
-    'UPDATE agendamento SET ID_User = $1, ID_Prestador = $2 WHERE ID_Agendamento = $1 RETURNING *',
-    [ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora],
+    'UPDATE agendamento SET id_user = $2, id_favorito = $3, id_prestador = $4, data = $5, hora = $6 WHERE id_agendamento = $1 RETURNING *',
+    [id_agendamento, id_user, id_favorito, id_prestador, data, hora],
     (error, results) => {
       if (error) {
         throw error
@@ -59,7 +60,7 @@ const updateAgendamento = (request, response) => {
       } else if (Array.isArray(results.rows) && results.rows.length < 1) {
       	response.status(404).send(`User not found`);
       } else {
-  	 	  response.status(200).send(`User modified with ID: ${results.rows[0].ID_Agendamento}`)         	
+  	 	  response.status(200).send(`User modified with ID: ${results.rows[0].id_agendamento}`)         	
       }
       
     }
@@ -67,13 +68,13 @@ const updateAgendamento = (request, response) => {
 }
 
 const deleteAgendamento = (request, response) => {
-  const id = parseInt(request.params.ID_Agendamento)
+  const id = parseInt(request.params.id)
 
-  pool.query('DELETE FROM agendamento WHERE id = $1', [ID_Agendamento], (error, results) => {
+  pool.query('DELETE FROM agendamento WHERE id_agendamento = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`User deleted with ID: ${ID_Agendamento}`)
+    response.status(200).send(`User deleted with ID: ${id}`)
   })
 }
 
