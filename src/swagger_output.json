@@ -30,8 +30,33 @@
           "200": {
             "description": "OK"
           }
-        }
-      }
+        }      
+      },
+     "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+       ],
+       "responses": {
+         "201": {
+         "description": "Created"
+         }
+        }   
+      }   
     },
     "/usuario/{id}": {
       "get": {
@@ -319,53 +344,45 @@
           }
         }
       },
-      "post": {
-       "description": "",
-       "parameters": [
-         {
-           "name": "id",
-           "in": "path",
-           "required": true,
-           "type": "string"
-         },
-         {
-           "name": "body",
-           "in": "body",
-           "schema": {
-             "type": "object",
-             "properties": {
-               "ID_Agendamento": {
-                 "example": "any"
-               },
-               "ID_User": {
-                 "example": "any"
-               },
-               "ID_Favorito": {
-                 "example": "any"
-               },
-               "ID_Prestador": {
-                 "example": "any"
-               },
-               "Data": {
-                 "example": "any"
-               },
-               "Hora": {
-                 "example": "any"
-               }
-             }
-           }
-         }
-      ],
-      "responses": {
-        "200": {
-          "description": "OK"
-        },
-        "404": {
-          "description": "Not Found"
+    
+    "post": {
+      "description": "",
+      "parameters": [
+        {
+          "name": "body",
+          "in": "body",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "ID_Agendamento": {
+                "example": "any"
+              },
+              "ID_User": {
+                "example": "any"
+              },
+              "ID_Favorito": {
+                "example": "any"
+              },
+              "ID_Prestador": {
+                "example": "any"
+              },
+              "Data": {
+                "example": "any"
+              },
+              "Hora": {
+                "example": "any"
+              }         
+            }
           }
         }
+      ],
+      "responses": {
+        "201": {
+          "description": "Created"
+        }
       }
-    },
+    }
+  },
     "/agendamentos/{id}": {
       "get": {
         "description": "",
