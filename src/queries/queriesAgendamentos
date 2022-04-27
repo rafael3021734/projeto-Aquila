@@ -33,7 +33,7 @@ const getAgendamentosById = (request, response) => {
 const createAgendamento = (request, response) => {
   const { ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora } = request.body
 
-  pool.query('INSERT INTO agendamento (ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
+  pool.query('INSERT INTO agendamento (ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora) VALUES ($1, $2, $2, $2, $2, $2) RETURNING *', [name, email], (error, results) => {
     if (error) {
       throw error
     } else if (!Array.isArray(results.rows) || results.rows.length < 1) {
@@ -48,7 +48,7 @@ const updateAgendamento = (request, response) => {
   const {ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora } = request.body
 
   pool.query(
-    'UPDATE agendamento SET name = $1, email = $2 WHERE id = $3 RETURNING *',
+    'UPDATE agendamento SET ID_User = $1, ID_Prestador = $2 WHERE ID_Agendamento = $1 RETURNING *',
     [ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora],
     (error, results) => {
       if (error) {
