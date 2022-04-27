@@ -31,8 +31,33 @@
             "description": "OK"
           }
         }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
       }
-    },
+    },    
     "/usuario/{id}": {
       "get": {
         "description": "",
@@ -305,6 +330,51 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "/agendamentos": {
+            "get": {
+              "description": "",
+              "parameters": [],
+              "responses": {
+                "200": {
+                  "description": "OK"
+                }
+              }
+            },
+            "post": {
+              "description": "",
+              "parameters": [
+                {
+                  "ID_Agendamento": "body",
+                  "in": "body",
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "ID_User": {
+                        "example": "any"
+                      },
+                      "ID_Favorito": {
+                        "example": "any"
+                      },
+                      "ID_Prestador": {
+                        "example": "any"
+                      },
+                      "Data": {
+                        "example": "any"
+                      },
+                      "Hora": {
+                        "example": "any"
+                      }
+                    }
+                  }
+                }
+              ],
+              "responses": {
+                "201": {
+                  "description": "Created"
+                }
+              }
+            }
           }
         }
       }

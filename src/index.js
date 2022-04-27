@@ -7,6 +7,7 @@ const swaggerFile = require('./swagger_output.json')
 const db = require('./queries/queriesUsuario')
 const db2 = require('./queries/queriesPrestador')
 const db3 = require('./queries/queriesServicos')
+const db4 = require('./queries/queriesAgendamentos')
 const port = 3000
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -50,6 +51,12 @@ app.get('/servicos/:id', db3.getServicosById)
 app.post('/servicos', db3.createServicos)
 app.put('/servicos/:id', db3.updateServicos)
 app.delete('/servicos/:id', db3.deleteServicos)
+
+app.get('/agendamentos', db4.getAgendamentos)
+app.get('/agendamentos/:id', db4.getAgendamentosById)
+app.post('agendamento', db4.createAgendamento)
+app.put('/agendamentos/:id', db4.updateAgendamento)
+app.delete('/agendamentos/:id', db4.deleteAgendamento)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)

@@ -1,0 +1,86 @@
+const Pool = require('pg').Pool
+const pool = new Pool({
+    user: "uojyssgxeojarp",
+    host: "ec2-23-20-224-166.compute-1.amazonaws.com",
+    database: "d4ahtk0vtsf17a",
+    password: "5ff488f69681ea28e682bd6e499c8b67c803493fee3f05a5ea746ef44a00d545",
+    port: 5432,
+    ssl: { rejectUnauthorized: false }
+})
+
+//require('dotenv').config()
+
+const getAgendamentos = (request, response) => {
+  pool.query('SELECT * FROM agendamento ORDER BY ID_Agendamento ASC', (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+const getAgendamentosById = (request, response) => {
+  const id = parseInt(request.params.ID_Agendamento)
+
+  pool.query('SELECT * FROM agendamento WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).json(results.rows)
+  })
+}
+
+const createAgendamento = (request, response) => {
+  const { ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora } = request.body
+
+  pool.query('INSERT INTO agendamento (ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora) VALUES ($1, $2) RETURNING *', [name, email], (error, results) => {
+    if (error) {
+      throw error
+    } else if (!Array.isArray(results.rows) || results.rows.length < 1) {
+    	throw error
+    }
+    response.status(201).send(`User added with ID: ${results.rows[0].ID_Agendamento}`)
+  })
+}
+
+const updateAgendamento = (request, response) => {
+  const id = parseInt(request.params.ID_Agendamento)
+  const {ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora } = request.body
+
+  pool.query(
+    'UPDATE agendamento SET name = $1, email = $2 WHERE id = $3 RETURNING *',
+    [ID_Agendamento, ID_User, ID_Favorito, ID_Prestador, Data, Hora],
+    (error, results) => {
+      if (error) {
+        throw error
+      } 
+      if (typeof results.rows == 'undefined') {
+      	response.status(404).send(`Resource not found`);
+      } else if (Array.isArray(results.rows) && results.rows.length < 1) {
+      	response.status(404).send(`User not found`);
+      } else {
+  	 	  response.status(200).send(`User modified with ID: ${results.rows[0].ID_Agendamento}`)         	
+      }
+      
+    }
+  )
+}
+
+const deleteAgendamento = (request, response) => {
+  const id = parseInt(request.params.ID_Agendamento)
+
+  pool.query('DELETE FROM agendamento WHERE id = $1', [ID_Agendamento], (error, results) => {
+    if (error) {
+      throw error
+    }
+    response.status(200).send(`User deleted with ID: ${ID_Agendamento}`)
+  })
+}
+
+module.exports = {
+  getAgendamentos,
+  getAgendamentosById,
+  createAgendamento,
+  updateAgendamento,
+  deleteAgendamento,
+}
