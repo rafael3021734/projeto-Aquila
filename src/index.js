@@ -54,7 +54,7 @@ app.delete('/servicos/:id', db3.deleteServicos)
 
 app.get('/agendamentos', db4.getAgendamentos)
 app.get('/agendamentos/:id', db4.getAgendamentosById)
-app.post('agendamento', db4.createAgendamento)
+app.post('agendamentos', db4.createAgendamento)
 app.put('/agendamentos/:id', db4.updateAgendamento)
 app.delete('/agendamentos/:id', db4.deleteAgendamento)
 
